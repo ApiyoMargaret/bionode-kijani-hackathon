@@ -4,9 +4,7 @@ from pathlib import Path
 
 from pydantic import BaseModel, Field
 
-
 BASE_DIR = Path(__file__).resolve().parent
-
 
 def _default_database_url() -> str:
     return os.getenv("DATABASE_URL", f"sqlite:///{(BASE_DIR / 'bionode.db').as_posix()}")
