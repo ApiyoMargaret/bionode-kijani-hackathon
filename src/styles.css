@@ -1,0 +1,119 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@custom-variant dark (&:is(.dark *));
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-emerald: var(--emerald);
+  --color-emerald-soft: var(--emerald-soft);
+  --color-aqua: var(--aqua);
+  --color-aqua-soft: var(--aqua-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-slate-panel: var(--slate-panel);
+  --color-slate-elev: var(--slate-elev);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.16 0.015 250);
+  --foreground: oklch(0.97 0.005 250);
+
+  --slate-panel: oklch(0.21 0.018 250);
+  --slate-elev: oklch(0.26 0.02 250);
+
+  --card: oklch(0.21 0.018 250);
+  --card-foreground: oklch(0.97 0.005 250);
+
+  --muted: oklch(0.3 0.02 250);
+  --muted-foreground: oklch(0.72 0.02 250);
+
+  --border: oklch(0.32 0.02 250);
+  --primary: oklch(0.72 0.16 175);
+  --primary-foreground: oklch(0.15 0.02 250);
+
+  --emerald: oklch(0.72 0.17 155);
+  --emerald-soft: oklch(0.72 0.17 155 / 0.15);
+
+  --aqua: oklch(0.75 0.14 220);
+  --aqua-soft: oklch(0.75 0.14 220 / 0.15);
+
+  --amber: oklch(0.82 0.17 75);
+  --amber-soft: oklch(0.82 0.17 75 / 0.15);
+
+  --danger: oklch(0.68 0.22 25);
+  --danger-soft: oklch(0.68 0.22 25 / 0.18);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+}
+
+/* --- Custom animations for active flood diversion state --- */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 oklch(0.68 0.22 25 / 0.55); }
+  70% { box-shadow: 0 0 0 14px oklch(0.68 0.22 25 / 0); }
+  100% { box-shadow: 0 0 0 0 oklch(0.68 0.22 25 / 0); }
+}
+.pulse-danger { animation: pulse-ring 1.6s cubic-bezier(0.4,0,0.6,1) infinite; }
+
+@keyframes flash-bg {
+  0%, 100% { background-color: oklch(0.68 0.22 25 / 0.18); }
+  50% { background-color: oklch(0.68 0.22 25 / 0.32); }
+}
+.flash-danger { animation: flash-bg 1.4s ease-in-out infinite; }
+
+@keyframes water-flow {
+  0% { transform: translateY(-100%); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+.water-drop { animation: water-flow 1.8s linear infinite; }
+
+@keyframes gate-open {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(120%); }
+}
+.gate-panel-open { animation: gate-open 2.2s ease-in-out infinite alternate; }
+
+@keyframes soft-bob {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.bob { animation: soft-bob 2.4s ease-in-out infinite; }
+
+@keyframes signal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.signal-blink { animation: signal-blink 2s ease-in-out infinite; }
+
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.85; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.map-ping { animation: ping-slow 2.2s cubic-bezier(0,0,0.2,1) infinite; }
